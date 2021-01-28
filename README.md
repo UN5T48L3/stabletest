@@ -1,2 +1,1 @@
-Do not copy of this.
-Learn from this, make better script than this.
+Basic ERC-20 based token and ico.
