@@ -12,6 +12,7 @@ App = {
     return App.initWeb3();
   },
 
+/*
   initWeb3: function() {
     if (typeof web3 !== 'undefined') {
       // If a web3 instance is already provided by Meta Mask.
@@ -24,6 +25,21 @@ App = {
     }
     return App.initContracts();
   },
+*/
+initWeb3: function() {
+      // Is there is an injected web3 instance?
+      if (typeof web3 !== 'undefined') {
+      ethereum.enable().then(() => {
+      web3 = new Web3(web3.currentProvider);
+      });
+      } else {
+      // If no injected web3 instance is detected, fallback to the TestRPC
+      web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));      
+      }
+      App.web3Provider=web3.currentProvider;
+      App.populateAddress();
+      return App.initContract();
+      },
 
   initContracts: function() {
     $.getJSON("StableTokenSale.json", function(stableTokenSale) {
